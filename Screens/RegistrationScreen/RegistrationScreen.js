@@ -11,11 +11,13 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import Feather from '@expo/vector-icons/Feather';
 import MainButton from '../../Components/Buttons/MainButton';
 import { SecondaryButton } from '../../Components/Buttons/SecondaryButton';
 import PasswordInput from '../../Components/Inputs/PasswordInput';
 import EmailInput from '../../Components/Inputs/EmailInput';
 import DefaultInput from '../../Components/Inputs/DefaultInput';
+import IconButton from '../../Components/Buttons/IconButton';
 
 const imgPlus = require('../../Images/plus.png');
 const imgX = require('../../Images/x.png');
@@ -52,8 +54,19 @@ export const RegistrationScreen = () => {
         <View style={{ ...styles.container, marginBottom: isKeyboardShown ? -170 : 0 }}>
           <View style={styles.avatarWrapper}>
             <Image source={isAvatar ? imgAvatar : null} style={styles.avatar}></Image>
-            <View style={{ ...styles.btnPlus, borderColor: '#E8E8E8' }}>
-              <Image source={isAvatar ? imgX : imgPlus} style={{ width: 13, height: 13 }}></Image>
+            <View style={{ ...styles.btnPlus }}>
+              {/* , borderColor: '#FF6C00' */}
+              <IconButton
+                icon={
+                  <Feather
+                    name="plus"
+                    size={18}
+                    color="#FF6C00"
+                    //   style={{ transform: [{ rotate: '45deg' }] }}
+                  />
+                }
+              />
+              {/* <Image source={isAvatar ? imgX : imgPlus} style={{ width: 13, height: 13 }}></Image> */}
             </View>
           </View>
 
@@ -108,6 +121,7 @@ const styles = StyleSheet.create({
     height: 25,
     borderRadius: 50,
     borderWidth: 1,
+    backgroundColor: '#FFFFFF',
     borderColor: '#FF6C00',
     display: 'flex',
     justifyContent: 'center',
