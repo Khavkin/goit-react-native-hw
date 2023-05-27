@@ -16,6 +16,8 @@ import EmailInput from '../../Components/Inputs/EmailInput';
 
 export const LoginScreen = () => {
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () =>
@@ -35,6 +37,10 @@ export const LoginScreen = () => {
     };
   }, []);
 
+  const handleOnLogin = () => {
+    console.log(`\nLogin:\nEmail:${email},\nPassword:${password}`);
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -44,10 +50,14 @@ export const LoginScreen = () => {
         <View style={{ ...styles.container, marginBottom: isKeyboardShown ? -240 : 0 }}>
           <Text style={styles.title}>Войти</Text>
 
-          <EmailInput />
-          <PasswordInput />
+          <EmailInput value={email} onChangeText={setEmail} />
+          <PasswordInput value={password} onChangeText={setPassword} />
 
-          <MainButton buttonText="Войти" style={{ button: { marginTop: 23 } }} onClick={null} />
+          <MainButton
+            buttonText="Войти"
+            style={{ button: { marginTop: 23 } }}
+            onClick={handleOnLogin}
+          />
           <SecondaryButton buttonText="Нет аккаунта? Зарегистрироваться" onClick={null} />
         </View>
       </TouchableWithoutFeedback>

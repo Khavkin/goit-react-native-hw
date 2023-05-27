@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import {
+  Alert,
   Dimensions,
   Image,
   Keyboard,
@@ -18,6 +19,8 @@ import PasswordInput from '../../Components/Inputs/PasswordInput';
 import EmailInput from '../../Components/Inputs/EmailInput';
 import DefaultInput from '../../Components/Inputs/DefaultInput';
 import IconButton from '../../Components/Buttons/IconButton';
+import * as ImagePicker from 'expo-image-picker';
+import { launchCameraAsync, useCameraPermissions, PermissionStatus } from 'expo-image-picker';
 
 const imgPlus = require('../../Images/plus.png');
 const imgX = require('../../Images/x.png');
@@ -30,6 +33,7 @@ export const RegistrationScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [avatar, setAvatar] = useState('');
+  const [cameraPermissionInformation, requestPermission] = useCameraPermissions();
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () =>
@@ -50,8 +54,49 @@ export const RegistrationScreen = () => {
   }, []);
 
   const handleOnRegister = () => {
-    console.log(`\nlogin:${login},\nemail:${email},\npassword:${password}`);
+    console.log(`\nlogin:${login},\nemail:${email},\npassword:${password},\navatar:${avatar}`);
   };
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setAvatar(result.assets[0].uri);
+    }
+  };
+
+  async function verifyPermission() {
+    if (cameraPermissionInformation.status === PermissionStatus.UNDETERMINED) {
+      const permissionResponse = await requestPermission();
+
+      return permissionResponse.granted;
+    }
+    if (cameraPermissionInformation.status === PermissionStatus.DENIED) {
+      Alert.alert('Insufficient permission!', 'You need to grant camera access to use this app');
+      return false;
+    }
+    return true;
+  }
+  async function camerapressHandler() {
+    const hasPermission = await verifyPermission();
+    if (!hasPermission) {
+      return;
+    }
+    const image = await launchCameraAsync({
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+    setAvatar(image.assets[0].uri);
+  }
 
   return (
     <KeyboardAvoidingView
@@ -61,8 +106,14 @@ export const RegistrationScreen = () => {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={{ ...styles.container, marginBottom: isKeyboardShown ? -170 : 0 }}>
           <View style={styles.avatarWrapper}>
-            <Image source={isAvatar ? imgAvatar : null} style={styles.avatar}></Image>
-            <View style={{ ...styles.btnPlus }}>
+            <Image source={avatar ? { uri: avatar } : null} style={styles.avatar}></Image>
+            <View
+              style={
+                avatar !== ''
+                  ? { ...styles.btnPlus, borderColor: '#E8E8E8' }
+                  : { ...styles.btnPlus }
+              }
+            >
               {/* , borderColor: '#FF6C00' */}
               <IconButton
                 icon={
@@ -70,9 +121,17 @@ export const RegistrationScreen = () => {
                     name="plus"
                     size={18}
                     color="#FF6C00"
-                    //   style={{ transform: [{ rotate: '45deg' }] }}
+                    style={
+                      avatar !== ''
+                        ? {
+                            transform: [{ rotate: '45deg' }],
+                            color: '#E8E8E8',
+                          }
+                        : {}
+                    }
                   />
                 }
+                onClick={pickImage}
               />
               {/* <Image source={isAvatar ? imgX : imgPlus} style={{ width: 13, height: 13 }}></Image> */}
             </View>
