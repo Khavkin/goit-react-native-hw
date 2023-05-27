@@ -26,6 +26,10 @@ const imgAvatar = require('../../Images/avatar.png');
 export const RegistrationScreen = () => {
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
   const [isAvatar, setIsAvatar] = useState(false);
+  const [login, setLogin] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [avatar, setAvatar] = useState('');
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () =>
@@ -44,6 +48,10 @@ export const RegistrationScreen = () => {
       }
     };
   }, []);
+
+  const handleOnRegister = () => {
+    console.log(`\nlogin:${login},\nemail:${email},\npassword:${password}`);
+  };
 
   return (
     <KeyboardAvoidingView
@@ -71,15 +79,15 @@ export const RegistrationScreen = () => {
           </View>
 
           <Text style={styles.title}>Регистрация</Text>
-          <DefaultInput placeHolder="Логин" />
+          <DefaultInput placeHolder="Логин" value={login} onChangeText={setLogin} />
 
-          <EmailInput />
-          <PasswordInput />
+          <EmailInput value={email} onChangeText={setEmail} />
+          <PasswordInput value={password} onChangeText={setPassword} />
 
           <MainButton
             buttonText="Зарегистрироваться"
             style={{ button: { marginTop: 23 } }}
-            onClick={null}
+            onClick={handleOnRegister}
           />
           <SecondaryButton buttonText="Уже есть аккаунт? Войти" onClick={null} />
         </View>
