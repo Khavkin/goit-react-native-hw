@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 import SecondaryButton from '../Buttons/SecondaryButton';
 
-export const PasswordInput = () => {
+export const PasswordInput = ({ value, onChangeText }) => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isOnFocus, setIsOnFocus] = useState(false);
 
@@ -20,6 +20,8 @@ export const PasswordInput = () => {
         style={{ ...styles.input, borderColor: isOnFocus ? '#FF6C00' : '#E8E8E8' }}
         onFocus={() => setIsOnFocus(true)}
         onBlur={() => setIsOnFocus(false)}
+        value={value}
+        onChangeText={onChangeText}
       />
       <SecondaryButton
         buttonText={isShowPassword ? 'Скрыть' : 'Показать'}
