@@ -39,8 +39,8 @@ export default function App() {
       ></ImageBackground>
 
       <View style={styles.container}>
-        {/* <RegistrationScreen /> */}
-        <LoginScreen />
+        <RegistrationScreen />
+        {/* <LoginScreen /> */}
         {/* <PostsScreen /> */}
       </View>
     </>

@@ -7,8 +7,6 @@ import {
   KeyboardAvoidingView,
   StyleSheet,
   Text,
-  TextInput,
-  TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
@@ -21,10 +19,6 @@ import DefaultInput from '../../Components/Inputs/DefaultInput';
 import IconButton from '../../Components/Buttons/IconButton';
 import * as ImagePicker from 'expo-image-picker';
 import { launchCameraAsync, useCameraPermissions, PermissionStatus } from 'expo-image-picker';
-
-const imgPlus = require('../../Images/plus.png');
-const imgX = require('../../Images/x.png');
-const imgAvatar = require('../../Images/avatar.png');
 
 export const RegistrationScreen = () => {
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
@@ -54,7 +48,9 @@ export const RegistrationScreen = () => {
   }, []);
 
   const handleOnRegister = () => {
-    console.log(`\nlogin:${login},\nemail:${email},\npassword:${password},\navatar:${avatar}`);
+    console.log(
+      `\nRegistration\nlogin:${login},\nemail:${email},\npassword:${password},\navatar:${avatar}`
+    );
   };
 
   const pickImage = async () => {
@@ -133,7 +129,6 @@ export const RegistrationScreen = () => {
                 }
                 onClick={pickImage}
               />
-              {/* <Image source={isAvatar ? imgX : imgPlus} style={{ width: 13, height: 13 }}></Image> */}
             </View>
           </View>
 

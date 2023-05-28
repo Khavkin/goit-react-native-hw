@@ -1,18 +1,9 @@
-import {
-  StyleSheet,
-  TouchableHighlight,
-  TouchableOpacity,
-  View,
-  Text,
-  FlatList,
-  Image,
-} from 'react-native';
+import { StyleSheet, View, FlatList, Image } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 import IconButton from '../../Components/Buttons/IconButton';
 import Caption from '../../Components/Texts/Caption';
 import BoldText from '../../Components/Texts/BoldText';
 import RegularText from '../../Components/Texts/RegularText';
-const imgAvatar = require('../../Images/avatar.png');
 
 export const PostsScreen = () => {
   return (
@@ -24,7 +15,7 @@ export const PostsScreen = () => {
       <View style={styles.main}>
         <View style={styles.userInfoWrapper}>
           <View style={styles.avatarWrapper}>
-            <Image style={styles.avatar} source={imgAvatar}></Image>
+            <Image style={styles.avatar} source={null}></Image>
           </View>
           <View style={styles.infoWrapper}>
             <BoldText>Natali Romanova</BoldText>

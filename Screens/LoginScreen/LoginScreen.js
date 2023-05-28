@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import {
-  Dimensions,
-  Image,
   Keyboard,
   KeyboardAvoidingView,
   StyleSheet,
