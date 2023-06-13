@@ -7,15 +7,17 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import MainButton from '../../Components/Buttons/MainButton';
-import { SecondaryButton } from '../../Components/Buttons/SecondaryButton';
-import PasswordInput from '../../Components/Inputs/PasswordInput';
-import EmailInput from '../../Components/Inputs/EmailInput';
+import MainButton from '../../../Components/Buttons/MainButton';
+import { SecondaryButton } from '../../../Components/Buttons/SecondaryButton';
+import PasswordInput from '../../../Components/Inputs/PasswordInput';
+import EmailInput from '../../../Components/Inputs/EmailInput';
+import { useNavigation } from '@react-navigation/native';
 
 export const LoginScreen = () => {
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigation = useNavigation();
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () =>
@@ -37,6 +39,12 @@ export const LoginScreen = () => {
 
   const handleOnLogin = () => {
     console.log(`\nLogin:\nEmail:${email},\nPassword:${password}`);
+    navigation.navigate('Home');
+  };
+
+  const handleOnToRegistration = () => {
+    console.log('to registration');
+    navigation.navigate('Registration');
   };
 
   return (
@@ -54,9 +62,12 @@ export const LoginScreen = () => {
           <MainButton
             buttonText="Войти"
             style={{ button: { marginTop: 23 } }}
-            onClick={handleOnLogin}
+            onPress={handleOnLogin}
           />
-          <SecondaryButton buttonText="Нет аккаунта? Зарегистрироваться" onClick={null} />
+          <SecondaryButton
+            buttonText="Нет аккаунта? Зарегистрироваться"
+            onPress={handleOnToRegistration}
+          />
         </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>

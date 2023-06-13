@@ -1,9 +1,9 @@
 import { StyleSheet, View, FlatList, Image } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
-import IconButton from '../../Components/Buttons/IconButton';
-import Caption from '../../Components/Texts/Caption';
-import BoldText from '../../Components/Texts/BoldText';
-import RegularText from '../../Components/Texts/RegularText';
+import IconButton from '../../../Components/Buttons/IconButton';
+import Caption from '../../../Components/Texts/Caption';
+import BoldText from '../../../Components/Texts/BoldText';
+import RegularText from '../../../Components/Texts/RegularText';
 
 export const PostsScreen = () => {
   return (
@@ -26,42 +26,39 @@ export const PostsScreen = () => {
         <FlatList></FlatList>
       </View>
 
-      <View style={styles.footer}>
+      {/* <View style={styles.footer}>
+       
         <IconButton
-          icon={
-            <Feather
-              name="grid"
-              size={24}
-              color="#212121"
-              //   style={{ transform: [{ rotate: '45deg' }] }}
-            />
-          }
+               icon={
+                  <Feather
+                   name="grid"
+                    size={24}
+                    color="#212121"
+       
+                  />
+                 }
+              />
+              <IconButton
+               style={styles.btnPlus}
+               icon={
+                 <Feather
+                   name="plus"
+                  size={20}
+                  color="#FFFFFF"
+                 />
+               }
+             />
+             <IconButton
+               icon={
+                <Feather
+                   name="user"
+                  size={24}
+                  color="#212121"
+                 />
+               }
         />
-        <IconButton
-          style={styles.btnPlus}
-          icon={
-            <Feather
-              name="plus"
-              size={20}
-              color="#FFFFFF"
-              //   style={{ transform: [{ rotate: '45deg' }] }}
-            />
-          }
-        />
-        <IconButton
-          icon={
-            <Feather
-              name="user"
-              size={24}
-              color="#212121"
-              //   style={{ transform: [{ rotate: '45deg' }] }}
-            />
-          }
-        />
-        {/* header */}
-        {/* postlist */}
-        {/* toolbar */}
-      </View>
+        
+      </View> */}
     </View>
   );
 };

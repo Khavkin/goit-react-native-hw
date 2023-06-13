@@ -1,9 +1,9 @@
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-export const SecondaryButton = ({ buttonText, style, onClick }) => {
-  // console.log(buttonText, onClick);
+export const SecondaryButton = ({ buttonText, style, onPress }) => {
+  //console.log(buttonText, onClick);
   return (
-    <TouchableOpacity style={{ ...styles.btnSecondary, ...style?.button }} onPress={onClick}>
+    <TouchableOpacity style={{ ...styles.btnSecondary, ...style?.button }} onPress={onPress}>
       <Text style={{ ...styles.btnSecondaryText, ...style?.text }}>{buttonText}</Text>
     </TouchableOpacity>
   );

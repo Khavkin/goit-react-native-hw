@@ -11,14 +11,15 @@ import {
   View,
 } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
-import MainButton from '../../Components/Buttons/MainButton';
-import { SecondaryButton } from '../../Components/Buttons/SecondaryButton';
-import PasswordInput from '../../Components/Inputs/PasswordInput';
-import EmailInput from '../../Components/Inputs/EmailInput';
-import DefaultInput from '../../Components/Inputs/DefaultInput';
-import IconButton from '../../Components/Buttons/IconButton';
+import MainButton from '../../../Components/Buttons/MainButton';
+import { SecondaryButton } from '../../../Components/Buttons/SecondaryButton';
+import PasswordInput from '../../../Components/Inputs/PasswordInput';
+import EmailInput from '../../../Components/Inputs/EmailInput';
+import DefaultInput from '../../../Components/Inputs/DefaultInput';
+import IconButton from '../../../Components/Buttons/IconButton';
 import * as ImagePicker from 'expo-image-picker';
 import { launchCameraAsync, useCameraPermissions, PermissionStatus } from 'expo-image-picker';
+import { useNavigation } from '@react-navigation/native';
 
 export const RegistrationScreen = () => {
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
@@ -28,6 +29,7 @@ export const RegistrationScreen = () => {
   const [password, setPassword] = useState('');
   const [avatar, setAvatar] = useState('');
   const [cameraPermissionInformation, requestPermission] = useCameraPermissions();
+  const navigation = useNavigation();
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () =>
@@ -127,7 +129,7 @@ export const RegistrationScreen = () => {
                     }
                   />
                 }
-                onClick={pickImage}
+                onPress={pickImage}
               />
             </View>
           </View>
@@ -141,9 +143,12 @@ export const RegistrationScreen = () => {
           <MainButton
             buttonText="Зарегистрироваться"
             style={{ button: { marginTop: 23 } }}
-            onClick={handleOnRegister}
+            onPress={handleOnRegister}
           />
-          <SecondaryButton buttonText="Уже есть аккаунт? Войти" onClick={null} />
+          <SecondaryButton
+            buttonText="Уже есть аккаунт? Войти"
+            onPress={() => navigation.navigate('Login')}
+          />
         </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>

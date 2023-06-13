@@ -1,14 +1,19 @@
 import { Dimensions, ImageBackground, StyleSheet, View } from 'react-native';
-import RegistrationScreen from './Screens/RegistrationScreen/RegistrationScreen';
+import RegistrationScreen from './Screens/Auth/RegistrationScreen/RegistrationScreen';
 import { loadAsync } from 'expo-font';
 import { useEffect, useState } from 'react';
-import LoginScreen from './Screens/LoginScreen/LoginScreen';
-import PostsScreen from './Screens/PostsScreen/PostsScreen';
+import LoginScreen from './Screens/Auth/LoginScreen/LoginScreen';
+//import PostsScreen from './Screens/PostsScreen/PostsScreen';
+
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Home } from './Screens/Main/Home/Home';
 
 const bgImage = require('./Images/Photo-BG.png');
 
 export default function App() {
   const [isFontsLoaded, setIsFontsLoaded] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   // const [fontsLoaded] = useFonts({
   //   RobotoBold: require('./assets/Fonts/Roboto-Bold.ttf'),
@@ -30,21 +35,39 @@ export default function App() {
 
   if (!isFontsLoaded) return null;
 
-  return (
-    <>
-      <ImageBackground
-        source={bgImage}
-        resizeMode="cover"
-        style={styles.backgroundImage}
-      ></ImageBackground>
+  const Stack = createNativeStackNavigator();
+  const navTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      background: 'transparent',
+    },
+  };
 
-      <View style={styles.container}>
-        <RegistrationScreen />
-        {/* <LoginScreen /> */}
-        {/* <PostsScreen /> */}
-      </View>
-    </>
+  return (
+    <ImageBackground source={bgImage} resizeMode="cover" style={styles.backgroundImage}>
+      <NavigationContainer theme={navTheme}>
+        <Stack.Navigator
+          initialRouteName="Login"
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Registration" component={RegistrationScreen} />
+          <Stack.Screen name="Home" component={Home} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ImageBackground>
   );
+}
+
+{
+  /* <View style={styles.container}>
+  <RegistrationScreen />
+  <LoginScreen /> 
+ <PostsScreen /> 
+</View>; */
 }
 
 const styles = StyleSheet.create({
