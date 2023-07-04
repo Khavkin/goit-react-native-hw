@@ -53,6 +53,7 @@ export const RegistrationScreen = () => {
     console.log(
       `\nRegistration\nlogin:${login},\nemail:${email},\npassword:${password},\navatar:${avatar}`
     );
+    navigation.navigate('Home', { login, email });
   };
 
   const pickImage = async () => {

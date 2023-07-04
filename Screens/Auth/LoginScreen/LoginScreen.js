@@ -13,7 +13,7 @@ import PasswordInput from '../../../Components/Inputs/PasswordInput';
 import EmailInput from '../../../Components/Inputs/EmailInput';
 import { useNavigation } from '@react-navigation/native';
 
-export const LoginScreen = () => {
+export const LoginScreen = ({ route }) => {
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -39,7 +39,9 @@ export const LoginScreen = () => {
 
   const handleOnLogin = () => {
     console.log(`\nLogin:\nEmail:${email},\nPassword:${password}`);
-    navigation.navigate('Home');
+    // onSubmit({ email, password });
+    console.log(route.params);
+    navigation.navigate('Home', { email });
   };
 
   const handleOnToRegistration = () => {

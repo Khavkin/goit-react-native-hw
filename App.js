@@ -7,19 +7,18 @@ import LoginScreen from './Screens/Auth/LoginScreen/LoginScreen';
 
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Home } from './Screens/Main/Home/Home';
+import { Home } from './Screens/Main/Home';
 
 const bgImage = require('./Images/Photo-BG.png');
 
 export default function App() {
   const [isFontsLoaded, setIsFontsLoaded] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [user, setUser] = useState({});
 
-  // const [fontsLoaded] = useFonts({
-  //   RobotoBold: require('./assets/Fonts/Roboto-Bold.ttf'),
-  //   RobotoMedium: require('./assets/Fonts/Roboto-Medium.ttf'),
-  //   RobotoRegular: require('./assets/Fonts/Roboto-Regular.ttf'),
-  // });
+  const handleOnSubmit = ({ login = null, email, password }) => {
+    console.log(login, email, password);
+  };
 
   useEffect(() => {
     const loadFonts = async () => {
