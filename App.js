@@ -8,13 +8,19 @@ import LoginScreen from './Screens/Auth/LoginScreen/LoginScreen';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Home } from './Screens/Main/Home';
+import { AuthProvider, useAuth } from './Context/AuthContext';
+import useRoute from './route';
+import { Navigation } from './Components/Navigation/Navigation';
+import { PostsProvider } from './Context/PostsContext';
 
 const bgImage = require('./Images/Photo-BG.png');
 
 export default function App() {
   const [isFontsLoaded, setIsFontsLoaded] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [user, setUser] = useState({});
+  // const [isLoggedIn, setIsLoggedIn] = useState(true);
+  // const [user, setUser] = useState({});
+  //const { logIn } = useAuth();
+  // const routing = useRoute();
 
   const handleOnSubmit = ({ login = null, email, password }) => {
     console.log(login, email, password);
@@ -34,29 +40,36 @@ export default function App() {
 
   if (!isFontsLoaded) return null;
 
-  const Stack = createNativeStackNavigator();
-  const navTheme = {
-    ...DefaultTheme,
-    colors: {
-      ...DefaultTheme.colors,
-      background: 'transparent',
-    },
-  };
+  // const Stack = createNativeStackNavigator();
+  // const navTheme = {
+  //   ...DefaultTheme,
+  //   colors: {
+  //     ...DefaultTheme.colors,
+  //     background: 'transparent',
+  //   },
+  // };
 
   return (
     <ImageBackground source={bgImage} resizeMode="cover" style={styles.backgroundImage}>
-      <NavigationContainer theme={navTheme}>
-        <Stack.Navigator
-          initialRouteName="Login"
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="Registration" component={RegistrationScreen} />
-          <Stack.Screen name="Home" component={Home} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <AuthProvider>
+        <PostsProvider>
+          <Navigation />
+          {/* <NavigationContainer theme={navTheme}>
+          <Stack.Navigator
+            initialRouteName="Login"
+            screenOptions={{
+              headerShown: false,
+            }}
+          > */}
+          {/* <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Registration" component={RegistrationScreen} />
+            <Stack.Screen name="Home" component={Home} /> */}
+
+          {/* {useRoute()}
+          </Stack.Navigator>
+        </NavigationContainer> */}
+        </PostsProvider>
+      </AuthProvider>
     </ImageBackground>
   );
 }

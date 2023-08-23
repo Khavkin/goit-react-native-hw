@@ -1,16 +1,19 @@
 import { useState } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, TextInput, View } from 'react-native';
 
 import Feather from '@expo/vector-icons/Feather';
 import IconButton from '../Buttons/IconButton';
 
-export const LocationInput = ({ location, onChangeText, style }) => {
-  const [isShowPassword, setIsShowPassword] = useState(false);
-  const [isOnFocus, setIsOnFocus] = useState(false);
+export const LocationInput = ({ onChangeLocation, style, ...props }) => {
+  const location = props.value;
+  console.log('locationInput-1', location, currentLocation);
+  const [currentLocation, setLocation] = useState(location);
+  console.log('locationInput-2', location, currentLocation);
 
   handleOnClick = () => {
-    //  alert(isShowPassword);
-    setIsShowPassword(!isShowPassword);
+    if (onChangeLocation) onChangeLocation(currentLocation);
+
+    console.log('onClick location');
   };
 
   return (
@@ -18,9 +21,16 @@ export const LocationInput = ({ location, onChangeText, style }) => {
       <IconButton
         icon={<Feather name={'map-pin'} size={24} style={{ color: '#BDBDBD' }} />}
         style={styles.btnShow}
-        onClick={handleOnClick}
+        onPress={handleOnClick}
       />
-      <Text style={{ ...styles.input }}>{location}</Text>
+      <TextInput
+        style={{ ...styles.input }}
+        value={currentLocation}
+        onChangeText={setLocation}
+        placeholder="Місцевість..."
+        caretHidden={true}
+        editable={false}
+      />
     </View>
   );
 };
@@ -40,12 +50,9 @@ const styles = StyleSheet.create({
     fontFamily: 'RobotoRegular',
 
     flex: 1,
-    color: '#BDBDBD',
+    color: '#212121',
   },
   btnShow: {
-    //  position: 'absolute',
-    // left: 0,
-    // top: 16,
     width: 24,
     height: 24,
     marginRight: 4,

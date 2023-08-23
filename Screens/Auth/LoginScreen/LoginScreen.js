@@ -12,12 +12,15 @@ import { SecondaryButton } from '../../../Components/Buttons/SecondaryButton';
 import PasswordInput from '../../../Components/Inputs/PasswordInput';
 import EmailInput from '../../../Components/Inputs/EmailInput';
 import { useNavigation } from '@react-navigation/native';
+import { users } from '../../../Data';
+import { useAuth } from '../../../Context/AuthContext';
 
 export const LoginScreen = ({ route }) => {
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
+  const { logIn } = useAuth();
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () =>
@@ -38,10 +41,16 @@ export const LoginScreen = ({ route }) => {
   }, []);
 
   const handleOnLogin = () => {
-    console.log(`\nLogin:\nEmail:${email},\nPassword:${password}`);
+    //console.log(`\nLogin:\nEmail:${email},\nPassword:${password}`);
     // onSubmit({ email, password });
-    console.log(route.params);
-    navigation.navigate('Home', { email });
+    const user = users.find(user => user.email === email);
+    if (user) {
+      //console.log(route.params);
+      //navigation.navigate('Home', { user });
+      logIn({ user });
+    } else {
+      alert('User not found!');
+    }
   };
 
   const handleOnToRegistration = () => {

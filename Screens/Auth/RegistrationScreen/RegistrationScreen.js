@@ -50,9 +50,9 @@ export const RegistrationScreen = () => {
   }, []);
 
   const handleOnRegister = () => {
-    console.log(
-      `\nRegistration\nlogin:${login},\nemail:${email},\npassword:${password},\navatar:${avatar}`
-    );
+    // console.log(
+    //   `\nRegistration\nlogin:${login},\nemail:${email},\npassword:${password},\navatar:${avatar}`
+    // );
     navigation.navigate('Home', { login, email });
   };
 

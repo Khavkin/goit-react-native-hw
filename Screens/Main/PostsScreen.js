@@ -1,20 +1,41 @@
 import { StyleSheet, View, FlatList, Image } from 'react-native';
 import BoldText from '../../Components/Texts/BoldText';
 import RegularText from '../../Components/Texts/RegularText';
+import { useAuth } from '../../Context/AuthContext';
+import IconButton from '../../Components/Buttons/IconButton';
+import Feather from '@expo/vector-icons/Feather';
+import { useEffect } from 'react';
 
-export const PostsScreen = ({ route }) => {
-  //console.log(route);
-  const { email, login } = route.params;
+export const PostsScreen = ({ navigation }) => {
+  // console.log(route.params);
+  const { getUser, logOut } = useAuth();
+  const user = getUser();
+  console.log(user);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => {
+        return (
+          <IconButton
+            icon={<Feather name="log-out" size={20} color="#BDBDBD" />}
+            style={{ marginRight: 16, width: 24, height: 24 }}
+            onPress={logOut}
+          />
+        );
+      },
+    });
+  }, [navigation]);
+
   return (
     <View style={styles.container}>
       <View style={styles.main}>
         <View style={styles.userInfoWrapper}>
           <View style={styles.avatarWrapper}>
-            <Image style={styles.avatar} source={null}></Image>
+            <Image style={styles.avatar} source={user?.avatar ? user.avatar : null}></Image>
           </View>
           <View style={styles.infoWrapper}>
-            <BoldText>{login}</BoldText>
-            <RegularText>{email}</RegularText>
+            <BoldText>{user?.login}</BoldText>
+            <RegularText>{user?.email}</RegularText>
           </View>
         </View>
 

@@ -1,42 +1,43 @@
-import { BottomTabBarHeightContext, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import PostsScreen from './PostsScreen';
-import Feather from '@expo/vector-icons/Feather';
-import { CreatePostsScreen } from './CreatePostsScreen';
-import { ProfileScreen } from './ProfileScreen';
-import IconButton from '../../Components/Buttons/IconButton';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import Caption from '../../Components/Texts/Caption';
+import { BottomTabBarHeightContext, createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import PostsScreen from "./PostsScreen";
+import Feather from "@expo/vector-icons/Feather";
+import { CreatePostsScreen } from "./CreatePostsScreen";
+import { ProfileScreen } from "./ProfileScreen";
+import IconButton from "../../Components/Buttons/IconButton";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import Caption from "../../Components/Texts/Caption";
 
 const Tab = createBottomTabNavigator();
 
 function MyTabBar({ state, descriptors, navigation }) {
-  console.log(state.routes, state.index, state.routes[state.index].name);
+  //console.log(state.routes, state.index, state.routes[state.index].name);
   const icons = {
-    Posts: 'grid',
-    CreatePosts: 'plus',
-    Profile: 'user',
+    Posts: "grid",
+    CreatePosts: "plus",
+    Profile: "user",
   };
 
   return (
-    <View style={{ flexDirection: 'row', height: 83, backgroundColor: '#fff' }}>
-      {state.routes[state.index].name === 'CreatePosts' ? (
+    <View style={{ flexDirection: "row", height: 83, backgroundColor: "#fff" }}>
+      {state.routes[state.index].name === "CreatePosts" ? (
         <View
           style={{
             flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
+            justifyContent: "center",
+            alignItems: "center",
           }}
+          key={state.routes[state.index].key}
         >
           <IconButton
             style={{
               width: 70,
               height: 40,
-              backgroundColor: '#F6F6F6',
+              backgroundColor: "#F6F6F6",
               borderRadius: 20,
-              justifyContent: 'center',
-              alignItems: 'center',
+              justifyContent: "center",
+              alignItems: "center",
             }}
-            icon={<Feather name={'trash-2'} size={24} color="#BDBDBD" />}
+            icon={<Feather name={"trash-2"} size={24} color="#BDBDBD" />}
           />
         </View>
       ) : (
@@ -49,24 +50,24 @@ function MyTabBar({ state, descriptors, navigation }) {
             ? {
                 width: 70,
                 height: 40,
-                backgroundColor: '#FF6C00',
+                backgroundColor: "#FF6C00",
                 borderRadius: 20,
-                justifyContent: 'center',
-                alignItems: 'center',
+                justifyContent: "center",
+                alignItems: "center",
               }
             : {
                 width: 70,
                 height: 40,
                 borderRadius: 20,
-                justifyContent: 'center',
-                alignItems: 'center',
+                justifyContent: "center",
+                alignItems: "center",
               };
 
-          const color = isFocused ? '#FFFFFF' : 'rgba(33, 33, 33, 0.8)';
+          const color = isFocused ? "#FFFFFF" : "rgba(33, 33, 33, 0.8)";
 
           const onPress = () => {
             const event = navigation.emit({
-              type: 'tabPress',
+              type: "tabPress",
               target: route.key,
             });
 
@@ -77,7 +78,7 @@ function MyTabBar({ state, descriptors, navigation }) {
 
           const onLongPress = () => {
             navigation.emit({
-              type: 'tabLongPress',
+              type: "tabLongPress",
               target: route.key,
             });
           };
@@ -86,9 +87,10 @@ function MyTabBar({ state, descriptors, navigation }) {
             <View
               style={{
                 flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
+                justifyContent: "center",
+                alignItems: "center",
               }}
+              key={route.key}
             >
               <IconButton
                 style={style}
@@ -104,8 +106,8 @@ function MyTabBar({ state, descriptors, navigation }) {
 }
 
 export const Home = ({ navigation, route }) => {
-  console.log(route);
-  const { email, login } = route.params;
+  //console.log(route.params);
+  //const { email, login } = route.params;
 
   return (
     <Tab.Navigator
@@ -155,54 +157,26 @@ export const Home = ({ navigation, route }) => {
         //   );
         // },
         tabBarShowLabel: false,
-        tabBarActiveTintColor: '#FFFFFF',
-        tabBarInactiveTintColor: 'rgba(33, 33, 33, 0.8)',
-        // header: ({ navigation, route, options }) => {
-        //   return (
-        //     <View style={styles.userMenu}>
-        //       <Caption style={styles.caption}>Публикации</Caption>
-        //       {/* <IconButton icon={<Feather name="log-out" size={20} color="#BDBDBD" />} /> */}
-        //     </View>
-        //   );
-        // },
+        tabBarActiveTintColor: "#FFFFFF",
+        tabBarInactiveTintColor: "rgba(33, 33, 33, 0.8)",
       })}
     >
       <Tab.Screen
         name="Posts"
         component={PostsScreen}
         options={{
-          title: 'Публікації',
-          headerTitleAlign: 'center',
+          title: "Публікації",
+          headerTitleAlign: "center",
           headerShadowVisible: true,
-          headerRight: () => {
-            return (
-              <IconButton
-                icon={<Feather name="log-out" size={20} color="#BDBDBD" />}
-                style={{ marginRight: 16, width: 24, height: 24 }}
-              />
-            );
-          },
         }}
-        initialParams={{ login, email }}
       />
       <Tab.Screen
         name="CreatePosts"
         component={CreatePostsScreen}
         options={{
-          title: 'Створити публікацію',
-          headerTitleAlign: 'center',
+          title: "Створити публікацію",
+          headerTitleAlign: "center",
           headerShadowVisible: true,
-          headerLeft: () => {
-            return (
-              <IconButton
-                icon={<Feather name="arrow-left" size={20} color="#BDBDBD" />}
-                style={{ marginLeft: 16, width: 24, height: 24 }}
-                onPress={() => {
-                  navigation.navigate('Posts');
-                }}
-              />
-            );
-          },
         }}
       />
       <Tab.Screen name="Profile" component={ProfileScreen} />
@@ -216,15 +190,15 @@ styles = StyleSheet.create({
     paddingTop: 28,
     paddingRight: 19,
     paddingBottom: 12,
-    backgroundColor: '#FFFFFF',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent: 'center',
+    backgroundColor: "#FFFFFF",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent: "center",
     borderBottomWidth: 1,
-    borderColor: '#E5E5E5',
+    borderColor: "#E5E5E5",
   },
   caption: {
-    color: '#212121',
+    color: "#212121",
   },
 });
