@@ -6,6 +6,7 @@ import { ProfileScreen } from "./ProfileScreen";
 import IconButton from "../../Components/Buttons/IconButton";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Caption from "../../Components/Texts/Caption";
+import { CreatePosts } from "./CreatePosts";
 
 const Tab = createBottomTabNavigator();
 
@@ -172,11 +173,13 @@ export const Home = ({ navigation, route }) => {
       />
       <Tab.Screen
         name="CreatePosts"
-        component={CreatePostsScreen}
+        // component={CreatePostsScreen}
+        component={CreatePosts}
         options={{
-          title: "Створити публікацію",
-          headerTitleAlign: "center",
-          headerShadowVisible: true,
+          // title: "Створити публікацію",
+          // headerTitleAlign: "center",
+          // headerShadowVisible: true,
+          headerShown: false,
         }}
       />
       <Tab.Screen name="Profile" component={ProfileScreen} />
@@ -202,3 +205,5 @@ styles = StyleSheet.create({
     color: "#212121",
   },
 });
+
+export default Home;

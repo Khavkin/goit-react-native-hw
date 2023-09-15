@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -6,27 +6,27 @@ import {
   Text,
   TouchableWithoutFeedback,
   View,
-} from 'react-native';
-import MainButton from '../../../Components/Buttons/MainButton';
-import { SecondaryButton } from '../../../Components/Buttons/SecondaryButton';
-import PasswordInput from '../../../Components/Inputs/PasswordInput';
-import EmailInput from '../../../Components/Inputs/EmailInput';
-import { useNavigation } from '@react-navigation/native';
-import { users } from '../../../Data';
-import { useAuth } from '../../../Context/AuthContext';
+} from "react-native";
+import MainButton from "../../../Components/Buttons/MainButton";
+import { SecondaryButton } from "../../../Components/Buttons/SecondaryButton";
+import PasswordInput from "../../../Components/Inputs/PasswordInput";
+import EmailInput from "../../../Components/Inputs/EmailInput";
+import { useNavigation } from "@react-navigation/native";
+import { users } from "../../../Data";
+import { useAuth } from "../../../Context/AuthContext";
 
 export const LoginScreen = ({ route }) => {
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("e-mail@example.com");
+  const [password, setPassword] = useState("");
   const navigation = useNavigation();
   const { logIn } = useAuth();
 
   useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () =>
+    const keyboardDidShowListener = Keyboard.addListener("keyboardDidShow", () =>
       setIsKeyboardShown(true)
     );
-    const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () =>
+    const keyboardDidHideListener = Keyboard.addListener("keyboardDidHide", () =>
       setIsKeyboardShown(false)
     );
 
@@ -49,18 +49,18 @@ export const LoginScreen = ({ route }) => {
       //navigation.navigate('Home', { user });
       logIn({ user });
     } else {
-      alert('User not found!');
+      alert("User not found!");
     }
   };
 
   const handleOnToRegistration = () => {
-    console.log('to registration');
-    navigation.navigate('Registration');
+    console.log("to registration");
+    navigation.navigate("Registration");
   };
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.kavContainer}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -88,38 +88,38 @@ export const LoginScreen = ({ route }) => {
 const styles = StyleSheet.create({
   kavContainer: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
   },
   container: {
     paddingTop: 32,
     paddingLeft: 16,
     paddingRight: 16,
     paddingBottom: 144,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    position: 'relative',
-    display: 'flex',
+    position: "relative",
+    display: "flex",
     gap: 16,
-    alignItems: 'center',
+    alignItems: "center",
   },
 
   input: {
     width: 343,
     height: 50,
-    backgroundColor: '#F6F6F6',
+    backgroundColor: "#F6F6F6",
     borderRadius: 8,
-    borderColor: '#E8E8E8',
+    borderColor: "#E8E8E8",
     borderWidth: 1,
-    borderStyle: 'solid',
+    borderStyle: "solid",
     padding: 16,
   },
   title: {
-    fontFamily: 'RobotoBold',
+    fontFamily: "RobotoBold",
     marginBottom: 17,
     fontWeight: 500,
     fontSize: 30,
-    textAlign: 'center',
+    textAlign: "center",
   },
 });
 
