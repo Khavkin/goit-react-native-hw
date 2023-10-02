@@ -5,7 +5,7 @@ import Feather from "@expo/vector-icons/Feather";
 import IconButton from "../../Components/Buttons/IconButton";
 //import { useNavigation } from "@react-navigation/native";
 
-export const Post = ({ item, navigation, user, ...props }) => {
+const Post = ({ item, navigation, user, ...props }) => {
   //const navigation = useNavigation();
 
   console.log(user, item);

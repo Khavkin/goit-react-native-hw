@@ -3,12 +3,13 @@ import { useEffect } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import IconButton from "../../Components/Buttons/IconButton";
 import Feather from "@expo/vector-icons/Feather";
+import Comment from "../../Components/Comment/Comment";
 
 export const CommentsScreen = ({ ...props }) => {
   const navigation = useNavigation();
   const { user, message } = props.route.params;
 
-  console.log("comments screen", props.route.params);
+  //console.log("comments screen", props.route.params);
 
   const handleOnBackButton = () => {
     navigation.navigate("Posts");
@@ -32,7 +33,11 @@ export const CommentsScreen = ({ ...props }) => {
   return (
     <View style={styles.container}>
       <Text>It's a Comments Screen</Text>
-      <FlatList></FlatList>
+      <FlatList
+        data={message.comments}
+        renderItem={({ item }) => <Comment comment={item} user={user} />}
+        keyExtractor={item => item.id}
+      />
       <View style={styles.footer}></View>
     </View>
   );
@@ -41,11 +46,14 @@ export const CommentsScreen = ({ ...props }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: "100%",
     backgroundColor: "#ffffff",
     //borderWidth: 2,
     justifyContent: "center",
     alignItems: "center",
+    paddingVertical: 16,
   },
+
   footer: {
     height: 50,
     width: "100%",
