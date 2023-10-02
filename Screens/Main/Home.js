@@ -106,7 +106,7 @@ function MyTabBar({ state, descriptors, navigation }) {
   );
 }
 
-export const Home = ({ navigation, route }) => {
+const Home = ({ navigation, route }) => {
   //console.log(route.params);
   //const { email, login } = route.params;
 

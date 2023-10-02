@@ -15,7 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import { users } from "../../../Data";
 import { useAuth } from "../../../Context/AuthContext";
 
-export const LoginScreen = ({ route }) => {
+const LoginScreen = ({ route }) => {
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
   const [email, setEmail] = useState("e-mail@example.com");
   const [password, setPassword] = useState("");

@@ -5,13 +5,13 @@ import Feather from "@expo/vector-icons/Feather";
 import IconButton from "../../Components/Buttons/IconButton";
 //import { useNavigation } from "@react-navigation/native";
 
-export const Post = ({ item, navigation, ...props }) => {
+export const Post = ({ item, navigation, user, ...props }) => {
   //const navigation = useNavigation();
 
-  console.log();
+  console.log(user, item);
 
   const handleOnCommentClick = () => {
-    navigation.navigate("CommentsScreen");
+    navigation.navigate("CommentsScreen", { user, message: item });
     //console.log("comments click");
   };
   return (

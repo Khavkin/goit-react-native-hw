@@ -46,7 +46,7 @@ export const PostsScreen = ({ navigation }) => {
           style={styles.postsWrapper}
           data={posts}
           //renderItem={Post }
-          renderItem={({ item }) => <Post item={item} navigation={navigation} />}
+          renderItem={({ item }) => <Post item={item} navigation={navigation} user={user} />}
           keyExtractor={item => item.id}
         />
       </View>

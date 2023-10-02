@@ -4,9 +4,11 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 import IconButton from "../../Components/Buttons/IconButton";
 import Feather from "@expo/vector-icons/Feather";
 
-export const CommentsScreen = () => {
+export const CommentsScreen = ({ ...props }) => {
   const navigation = useNavigation();
-  console.log("comments screen");
+  const { user, message } = props.route.params;
+
+  console.log("comments screen", props.route.params);
 
   const handleOnBackButton = () => {
     navigation.navigate("Posts");
