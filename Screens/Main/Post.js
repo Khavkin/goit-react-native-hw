@@ -8,7 +8,7 @@ import IconButton from "../../Components/Buttons/IconButton";
 const Post = ({ item, navigation, user, ...props }) => {
   //const navigation = useNavigation();
 
-  console.log(user, item);
+  //console.log(user, item);
 
   const handleOnCommentClick = () => {
     navigation.navigate("CommentsScreen", { user, message: item });

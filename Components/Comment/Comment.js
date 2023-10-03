@@ -3,12 +3,29 @@ import getUser from "../../Utils/getUser";
 
 const Comment = ({ comment, user }) => {
   const commentUser = getUser(comment.userID);
+  const isOwnComment = commentUser.id === user.id;
   return (
-    <View style={styles.commentContainer}>
+    <View
+      style={
+        !isOwnComment
+          ? styles.commentContainer
+          : { ...styles.commentContainer, flexDirection: "row-reverse" }
+      }
+    >
       <Image source={commentUser?.avatar} style={styles.avatar}></Image>
-      <View style={styles.messageContainer}>
+      <View
+        style={
+          !isOwnComment
+            ? { ...styles.messageContainer, borderTopLeftRadius: 0 }
+            : { ...styles.messageContainer, borderTopRightRadius: 0 }
+        }
+      >
         <Text style={styles.commentText}>{comment.comment}</Text>
-        <Text>{comment.date}</Text>
+        <Text
+          style={!isOwnComment ? styles.commentDate : { ...styles.commentDate, textAlign: "left" }}
+        >
+          {comment.date}
+        </Text>
       </View>
     </View>
   );
@@ -22,7 +39,7 @@ const styles = StyleSheet.create({
     gap: 16,
     marginBottom: 16,
     alignItems: "flex-start",
-    width: 200,
+    flex: 1,
   },
   avatar: {
     borderRadius: 50,
@@ -30,9 +47,11 @@ const styles = StyleSheet.create({
     height: 28,
   },
   messageContainer: {
-    backgroundColor: "rgba(0, 0, 0, 0.1)",
+    backgroundColor: "rgba(0, 0, 0, 0.03)",
     padding: 16,
-    borderRadius: 8,
+    borderRadius: 6,
+
+    flex: 1,
     //width: 350,
   },
   commentText: {
@@ -40,5 +59,12 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: "#212121",
     lineHeight: 18,
+  },
+  commentDate: {
+    color: "#BDBDBD",
+    fontSize: 10,
+    fontFamily: "Roboto",
+    textAlign: "right",
+    marginTop: 8,
   },
 });
