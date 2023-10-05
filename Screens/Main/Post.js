@@ -29,6 +29,15 @@ const Post = ({ item, navigation, user, ...props }) => {
           />
           <Text style={styles.commentsCount}>{item.comments.length}</Text>
         </View>
+        <View style={styles.commentsWrapper}>
+          <IconButton
+            icon={<Feather name="thumbs-up" size={20} color="#BDBDBD" />}
+            style={{ width: 24, height: 24 }}
+            onPress={handleOnCommentClick}
+          />
+          <Text style={styles.commentsCount}>{item.comments.length}</Text>
+        </View>
+
         <View style={stylesLocation.locationInputWrapper}>
           <IconButton
             icon={<Feather name={"map-pin"} size={20} style={{ color: "#BDBDBD" }} />}

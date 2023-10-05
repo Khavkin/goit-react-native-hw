@@ -176,13 +176,16 @@ const Home = ({ navigation, route }) => {
         // component={CreatePostsScreen}
         component={CreatePosts}
         options={{
-          // title: "Створити публікацію",
-          // headerTitleAlign: "center",
-          // headerShadowVisible: true,
           headerShown: false,
         }}
       />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Tab.Navigator>
   );
 };
