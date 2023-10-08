@@ -19,7 +19,16 @@ function MyTabBar({ state, descriptors, navigation }) {
   };
 
   return (
-    <View style={{ flexDirection: "row", height: 83, backgroundColor: "#fff" }}>
+    <View
+      style={{
+        flexDirection: "row",
+        height: 83,
+        backgroundColor: "#fff",
+
+        borderTopWidth: state.routes[state.index].name === "CreatePosts" ? 0 : 1,
+        borderColor: "rgba(0, 0, 0, 0.30)",
+      }}
+    >
       {state.routes[state.index].name === "CreatePosts" ? (
         <View
           style={{
@@ -115,48 +124,16 @@ const Home = ({ navigation, route }) => {
       initialRouteName="Posts"
       tabBar={props => <MyTabBar {...props} />}
       screenOptions={({ route }) => ({
-        // tabBarButton: ({ ...props }) => {
-        //   const icons = {
-        //     Posts: 'grid',
-        //     CreatePosts: 'plus',
-        //     Profile: 'user',
-        //   };
+        // tabBarBackground: () => (
+        //   <View
+        //     style={{
+        //       shadowOffset: { width: 1, height: 1 },
+        //       shadowColor: "gray",
+        //       shadowRadius: 1,
+        //     }}
+        //   />
+        // ),
 
-        //   const style = props.accessibilityState.selected
-        //     ? {
-        //         width: 70,
-        //         height: 40,
-        //         backgroundColor: '#FF6C00',
-        //         borderRadius: 20,
-        //         justifyContent: 'center',
-        //         alignItems: 'center',
-        //       }
-        //     : {
-        //         width: 70,
-        //         height: 40,
-        //         borderRadius: 20,
-        //         justifyContent: 'center',
-        //         alignItems: 'center',
-        //       };
-
-        //   const color = props.accessibilityState.selected ? '#FFFFFF' : 'rgba(33, 33, 33, 0.8)';
-
-        //   return (
-        //     <View
-        //       style={{
-        //         flex: 1,
-        //         justifyContent: 'center',
-        //         alignItems: 'center',
-        //       }}
-        //     >
-        //       <IconButton
-        //         style={style}
-        //         icon={<Feather name={icons[route.name]} color={color} size={24} />}
-        //         onPress={props.onPress}
-        //       />
-        //     </View>
-        //   );
-        // },
         tabBarShowLabel: false,
         tabBarActiveTintColor: "#FFFFFF",
         tabBarInactiveTintColor: "rgba(33, 33, 33, 0.8)",
@@ -169,6 +146,15 @@ const Home = ({ navigation, route }) => {
           title: "Публікації",
           headerTitleAlign: "center",
           headerShadowVisible: true,
+          headerStyle: {
+            shadowOffset: {
+              width: 0,
+              height: 1,
+            },
+            shadowColor: "black",
+            shadowOpacity: 0.3,
+            elevation: 3,
+          },
         }}
       />
       <Tab.Screen

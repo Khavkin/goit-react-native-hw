@@ -13,6 +13,7 @@ export const PostsScreen = ({ navigation }) => {
   // console.log(route.params);
   const { getUser, logOut } = useAuth();
   const user = getUser();
+  const userPosts = posts.filter(post => post.userID === user.id);
   // console.log(user);
 
   useEffect(() => {
@@ -44,9 +45,11 @@ export const PostsScreen = ({ navigation }) => {
 
         <FlatList
           style={styles.postsWrapper}
-          data={posts}
+          data={userPosts}
           //renderItem={Post }
-          renderItem={({ item }) => <Post item={item} navigation={navigation} user={user} />}
+          renderItem={({ item }) => (
+            <Post item={item} navigation={navigation} user={user} screen="posts" />
+          )}
           keyExtractor={item => item.id}
         />
       </View>

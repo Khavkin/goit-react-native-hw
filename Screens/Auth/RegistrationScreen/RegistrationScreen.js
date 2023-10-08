@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import {
   Alert,
   Dimensions,
@@ -9,33 +9,33 @@ import {
   Text,
   TouchableWithoutFeedback,
   View,
-} from 'react-native';
-import Feather from '@expo/vector-icons/Feather';
-import MainButton from '../../../Components/Buttons/MainButton';
-import { SecondaryButton } from '../../../Components/Buttons/SecondaryButton';
-import PasswordInput from '../../../Components/Inputs/PasswordInput';
-import EmailInput from '../../../Components/Inputs/EmailInput';
-import DefaultInput from '../../../Components/Inputs/DefaultInput';
-import IconButton from '../../../Components/Buttons/IconButton';
-import * as ImagePicker from 'expo-image-picker';
-import { launchCameraAsync, useCameraPermissions, PermissionStatus } from 'expo-image-picker';
-import { useNavigation } from '@react-navigation/native';
+} from "react-native";
+import Feather from "@expo/vector-icons/Feather";
+import MainButton from "../../../Components/Buttons/MainButton";
+import { SecondaryButton } from "../../../Components/Buttons/SecondaryButton";
+import PasswordInput from "../../../Components/Inputs/PasswordInput";
+import EmailInput from "../../../Components/Inputs/EmailInput";
+import DefaultInput from "../../../Components/Inputs/DefaultInput";
+import IconButton from "../../../Components/Buttons/IconButton";
+import * as ImagePicker from "expo-image-picker";
+import { launchCameraAsync, useCameraPermissions, PermissionStatus } from "expo-image-picker";
+import { useNavigation } from "@react-navigation/native";
 
 export const RegistrationScreen = () => {
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
   const [isAvatar, setIsAvatar] = useState(false);
-  const [login, setLogin] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [avatar, setAvatar] = useState('');
+  const [login, setLogin] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [avatar, setAvatar] = useState("");
   const [cameraPermissionInformation, requestPermission] = useCameraPermissions();
   const navigation = useNavigation();
 
   useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () =>
+    const keyboardDidShowListener = Keyboard.addListener("keyboardDidShow", () =>
       setIsKeyboardShown(true)
     );
-    const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () =>
+    const keyboardDidHideListener = Keyboard.addListener("keyboardDidHide", () =>
       setIsKeyboardShown(false)
     );
 
@@ -53,7 +53,7 @@ export const RegistrationScreen = () => {
     // console.log(
     //   `\nRegistration\nlogin:${login},\nemail:${email},\npassword:${password},\navatar:${avatar}`
     // );
-    navigation.navigate('Home', { login, email });
+    navigation.navigate("Home", { login, email });
   };
 
   const pickImage = async () => {
@@ -79,7 +79,7 @@ export const RegistrationScreen = () => {
       return permissionResponse.granted;
     }
     if (cameraPermissionInformation.status === PermissionStatus.DENIED) {
-      Alert.alert('Insufficient permission!', 'You need to grant camera access to use this app');
+      Alert.alert("Insufficient permission!", "You need to grant camera access to use this app");
       return false;
     }
     return true;
@@ -99,7 +99,7 @@ export const RegistrationScreen = () => {
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.kavContainer}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -108,8 +108,8 @@ export const RegistrationScreen = () => {
             <Image source={avatar ? { uri: avatar } : null} style={styles.avatar}></Image>
             <View
               style={
-                avatar !== ''
-                  ? { ...styles.btnPlus, borderColor: '#E8E8E8' }
+                avatar !== ""
+                  ? { ...styles.btnPlus, borderColor: "#E8E8E8" }
                   : { ...styles.btnPlus }
               }
             >
@@ -121,10 +121,10 @@ export const RegistrationScreen = () => {
                     size={18}
                     color="#FF6C00"
                     style={
-                      avatar !== ''
+                      avatar !== ""
                         ? {
-                            transform: [{ rotate: '45deg' }],
-                            color: '#E8E8E8',
+                            transform: [{ rotate: "45deg" }],
+                            color: "#E8E8E8",
                           }
                         : {}
                     }
@@ -148,7 +148,7 @@ export const RegistrationScreen = () => {
           />
           <SecondaryButton
             buttonText="Уже есть аккаунт? Войти"
-            onPress={() => navigation.navigate('Login')}
+            onPress={() => navigation.navigate("Login")}
           />
         </View>
       </TouchableWithoutFeedback>
@@ -159,62 +159,62 @@ export const RegistrationScreen = () => {
 const styles = StyleSheet.create({
   kavContainer: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
   },
   container: {
     paddingTop: 92,
     paddingLeft: 16,
     paddingRight: 16,
     paddingBottom: 78,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    position: 'relative',
-    display: 'flex',
+    position: "relative",
+    display: "flex",
     gap: 16,
-    alignItems: 'center',
+    alignItems: "center",
   },
   avatarWrapper: {
-    position: 'absolute',
+    position: "absolute",
     top: -60,
-    left: Dimensions.get('window').width / 2 - 60,
+    left: Dimensions.get("window").width / 2 - 60,
     width: 120,
     height: 120,
     borderRadius: 16,
-    backgroundColor: '#F6F6F6',
+    backgroundColor: "#F6F6F6",
   },
-  avatar: { width: 120, height: 120 },
+  avatar: { width: 120, height: 120, borderRadius: 16 },
   btnPlus: {
     width: 25,
     height: 25,
     borderRadius: 50,
     borderWidth: 1,
-    backgroundColor: '#FFFFFF',
-    borderColor: '#FF6C00',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#FFFFFF",
+    borderColor: "#FF6C00",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
 
-    position: 'absolute',
+    position: "absolute",
     right: -25 / 2,
     bottom: 14,
   },
   input: {
     width: 343,
     height: 50,
-    backgroundColor: '#F6F6F6',
+    backgroundColor: "#F6F6F6",
     borderRadius: 8,
-    borderColor: '#E8E8E8',
+    borderColor: "#E8E8E8",
     borderWidth: 1,
-    borderStyle: 'solid',
+    borderStyle: "solid",
     padding: 16,
   },
   title: {
-    fontFamily: 'RobotoBold',
+    fontFamily: "RobotoBold",
     marginBottom: 17,
     fontWeight: 500,
     fontSize: 30,
-    textAlign: 'center',
+    textAlign: "center",
   },
 });
 

@@ -13,39 +13,72 @@ export const ProfileScreen = ({ navigation }) => {
   // console.log(route.params);
   const { getUser, logOut } = useAuth();
   const user = getUser();
+  const userPosts = posts.filter(post => post.userID === user.id);
   // console.log(user);
 
-  useEffect(() => {
-    navigation.setOptions({
-      headerTitle: () => <HeaderTitle />,
-      headerRight: () => {
-        return (
-          <IconButton
-            icon={<Feather name="log-out" size={20} color="#BDBDBD" />}
-            style={{ marginRight: 16, width: 24, height: 24 }}
-            onPress={logOut}
-          />
-        );
-      },
-    });
-  }, [navigation]);
+  // useEffect(() => {
+  //   navigation.setOptions({
+  //     headerTitle: () => <HeaderTitle />,
+  //     headerRight: () => {
+  //       return (
+  //         <IconButton
+  //           icon={<Feather name="log-out" size={20} color="#BDBDBD" />}
+  //           style={{ marginRight: 16, width: 24, height: 24 }}
+  //           onPress={logOut}
+  //         />
+  //       );
+  //     },
+  //   });
+  // }, [navigation]);
 
   return (
     <View style={styles.container}>
       <View style={styles.main}>
         <View style={styles.avatarWrapper}>
           <Image style={styles.avatar} source={user?.avatar ? user.avatar : null}></Image>
+          <View
+            style={
+              user?.avatar ? { ...styles.btnPlus, borderColor: "#E8E8E8" } : { ...styles.btnPlus }
+            }
+          >
+            <IconButton
+              icon={
+                <Feather
+                  name="plus"
+                  size={18}
+                  color="#FF6C00"
+                  style={
+                    user?.avatar
+                      ? {
+                          transform: [{ rotate: "45deg" }],
+                          color: "#E8E8E8",
+                        }
+                      : {}
+                  }
+                />
+              }
+              onPress={null}
+            />
+          </View>
         </View>
         <View style={styles.userInfoWrapper}>
           <View style={styles.infoWrapper}>
             <BoldText style={{ marginVertical: 32, fontSize: 30 }}>{user?.login}</BoldText>
           </View>
         </View>
+        <View style={{ position: "absolute", top: 22, right: 16 }}>
+          <IconButton
+            icon={<Feather name="log-out" size={24} color="#BDBDBD" />}
+            onPress={logOut}
+          />
+        </View>
 
         <FlatList
           style={styles.postsWrapper}
-          data={posts}
-          renderItem={({ item }) => <Post item={item} navigation={navigation} user={user} />}
+          data={userPosts}
+          renderItem={({ item }) => (
+            <Post item={item} navigation={navigation} user={user} screen="profile" />
+          )}
           keyExtractor={item => item.id}
         />
       </View>
@@ -85,9 +118,24 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     left: Dimensions.get("window").width / 2 - 60,
     top: -60,
-    overflow: "hidden",
+    //overflow: "hidden",
   },
-  avatar: { width: 120, height: 120 },
+  avatar: { width: 120, height: 120, borderRadius: 16 },
+  btnPlus: {
+    width: 25,
+    height: 25,
+    borderRadius: 50,
+    borderWidth: 1,
+    backgroundColor: "#FFFFFF",
+    borderColor: "#FF6C00",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+
+    position: "absolute",
+    right: -25 / 2,
+    bottom: 14,
+  },
   infoWrapper: {},
   postsWrapper: {
     paddingLeft: 16,

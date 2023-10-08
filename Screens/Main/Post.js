@@ -1,19 +1,22 @@
 import * as React from "react";
-import { Image, StyleSheet, Text, TextInput, View } from "react-native";
-import RegularText from "../../Components/Texts/RegularText";
+import { Image, StyleSheet, Text, View } from "react-native";
+
 import Feather from "@expo/vector-icons/Feather";
 import IconButton from "../../Components/Buttons/IconButton";
-//import { useNavigation } from "@react-navigation/native";
+import SvgComponent from "../../Components/SvgComponent/SvgComponent";
 
-const Post = ({ item, navigation, user, ...props }) => {
-  //const navigation = useNavigation();
-
-  //console.log(user, item);
+const Post = ({ item, navigation, user, screen, ...props }) => {
+  //  console.log(item.comments.length);
+  // const tmpStyles =
+  //   screen === "profile"
+  //     ? { commentsCount: { ...styles.commentsCount }, commenstCount: { color: "#212121" } }
+  //     : { commentsCount: { ...styles.commentsCount } };
+  // console.log(tmpStyles);
 
   const handleOnCommentClick = () => {
     navigation.navigate("CommentsScreen", { user, message: item });
-    //console.log("comments click");
   };
+
   return (
     <View style={styles.container}>
       <Image source={item.image} style={styles.image}></Image>
@@ -21,21 +24,47 @@ const Post = ({ item, navigation, user, ...props }) => {
         {item.title}
       </Text>
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-        <View style={styles.commentsWrapper}>
-          <IconButton
-            icon={<Feather name="message-circle" size={20} color="#BDBDBD" />}
-            style={{ width: 24, height: 24 }}
-            onPress={handleOnCommentClick}
-          />
-          <Text style={styles.commentsCount}>{item.comments.length}</Text>
-        </View>
-        <View style={styles.commentsWrapper}>
-          <IconButton
-            icon={<Feather name="thumbs-up" size={20} color="#BDBDBD" />}
-            style={{ width: 24, height: 24 }}
-            onPress={handleOnCommentClick}
-          />
-          <Text style={styles.commentsCount}>{item.comments.length}</Text>
+        <View style={{ flexDirection: "row", justifyContent: "space-between", gap: 24 }}>
+          <View style={styles.commentsWrapper}>
+            <IconButton
+              icon={
+                screen === "profile" ? (
+                  <SvgComponent fill="#FF6C00" stroke="#FF6C00" />
+                ) : (
+                  <SvgComponent />
+                )
+              }
+              style={{ width: 24, height: 24 }}
+              onPress={handleOnCommentClick}
+            />
+            <Text
+              style={
+                screen === "profile"
+                  ? { ...styles.commentsCount, color: "#212121" }
+                  : styles.commentsCount
+              }
+            >
+              {item.comments.length}
+            </Text>
+          </View>
+          {screen === "profile" && (
+            <View style={styles.commentsWrapper}>
+              <IconButton
+                icon={<Feather name="thumbs-up" size={20} color="#FF6C00" />}
+                style={{ width: 24, height: 24 }}
+                onPress={null}
+              />
+              <Text
+                style={
+                  screen === "profile"
+                    ? { ...styles.commentsCount, color: "#212121" }
+                    : styles.commentsCount
+                }
+              >
+                {item.likes}
+              </Text>
+            </View>
+          )}
         </View>
 
         <View style={stylesLocation.locationInputWrapper}>
@@ -43,7 +72,11 @@ const Post = ({ item, navigation, user, ...props }) => {
             icon={<Feather name={"map-pin"} size={20} style={{ color: "#BDBDBD" }} />}
             style={stylesLocation.btnShow}
           />
-          <Text style={stylesLocation.input}>{item.location}</Text>
+          <Text style={stylesLocation.input}>
+            {screen === "profile"
+              ? item.location.country
+              : item.location.region + ", " + item.location.country}
+          </Text>
         </View>
       </View>
     </View>
@@ -57,14 +90,18 @@ const styles = StyleSheet.create({
   image: { width: "100%", borderRadius: 8 },
   commentsWrapper: {
     flexDirection: "row",
-    flex: 1,
+    //flex: 1,
     justifyContent: "flex-start",
+    gap: 6,
   },
   commentsCount: {
     fontFamily: "RobotoRegular",
     fontSize: 16,
 
     color: "#BDBDBD",
+  },
+  profileComments: {
+    color: "#FF6C00",
   },
 });
 

@@ -9,11 +9,16 @@ import Comment from "../../Components/Comment/Comment";
 export const CommentsScreen = ({ ...props }) => {
   const navigation = useNavigation();
   const { user, message } = props.route.params;
+  // const routesLength = useNavigationState(state => state.routes.length);
+  // const prevScreenName =
+  //   routesLength > 1 ? useNavigationState(state => state.routes[state.index - 1].name) : "";
 
-  //console.log("comments screen", props.route.params);
+  // console.log("Prev screen", prevScreenName);
 
   const handleOnBackButton = () => {
-    navigation.navigate("Posts");
+    //console.log(navigation.getParent());
+    navigation.goBack();
+    //navigation.navigate("Posts");
   };
 
   useEffect(() => {
